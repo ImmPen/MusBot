@@ -1,11 +1,15 @@
 import discord
+import config
 
 class MyClient(discord.Client):
     async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
-    
-    async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
+        print(f'Logged on as {self.user}!')
 
-client = MyClient
-client.run('MTIwMzU4MTcyNjg5MTMxMTE0NA.G9bu_9.GEGK-daD2qlnbRGXks7SBW7tnXBddmajFyQ7BI')
+    async def on_message(self, message):
+        print(f'Message from {message.author}: {message.content}')
+
+intents = discord.Intents.all()
+intents.message_content = True
+
+client = MyClient(intents=intents)
+client.run(token=config.TOKEN)
